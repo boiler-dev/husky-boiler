@@ -21,11 +21,11 @@ export const prompt: PromptBoiler = async () => {
 export const install: ActionBoiler = async () => {
   const actions: BoilerAction[] = []
 
-  // actions.push({
-  //   action: "npmInstall",
-  //   dev: true,
-  //   source: ["some-package"],
-  // })
+  actions.push({
+    action: "npmInstall",
+    dev: true,
+    source: ["husky"],
+  })
 
   return actions
 }
@@ -33,11 +33,11 @@ export const install: ActionBoiler = async () => {
 export const uninstall: ActionBoiler = async () => {
   const actions: BoilerAction[] = []
 
-  // actions.push({
-  //   action: "npmInstall",
-  //   source: ["some-package"],
-  //   uninstall: true,
-  // })
+  actions.push({
+    action: "npmInstall",
+    source: ["husky"],
+    uninstall: true,
+  })
 
   return actions
 }
@@ -45,11 +45,17 @@ export const uninstall: ActionBoiler = async () => {
 export const generate: ActionBoiler = async () => {
   const actions: BoilerAction[] = []
 
-  // actions.push({
-  //   action: "write",
-  //   path: "src/someName.ts",
-  //   sourcePath: "tsignore/someName.ts",
-  // })
+  actions.push({
+    action: "merge",
+    path: "package.json",
+    source: {
+      husky: {
+        hooks: {
+          "pre-commit": "lint-staged && npm test",
+        },
+      },
+    },
+  })
 
   return actions
 }
